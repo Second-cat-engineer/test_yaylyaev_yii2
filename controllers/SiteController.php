@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\ContentNegotiator;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -18,6 +19,15 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+            /*
+            'contentNegotiator' => [
+                'class' => ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ],
+            */
+
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
@@ -61,6 +71,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //return [1233, 123];
         return $this->render('index');
     }
 
@@ -124,5 +135,10 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionTest()
+    {
+        return $this->render('hello');
     }
 }
