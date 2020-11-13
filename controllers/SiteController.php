@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class SiteController extends Controller
+class SiteController extends BaseController
 {
     /**
      * {@inheritdoc}
@@ -71,7 +71,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //return [1233, 123];
         return $this->render('index');
     }
 
