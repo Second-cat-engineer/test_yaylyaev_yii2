@@ -9,7 +9,7 @@ class ArticleController extends BaseController
 {
     public $layout = 'base';
 
-    public function actionArticles()
+    public function actionIndex()
     {
         $this->view->title = 'Articles';
 
