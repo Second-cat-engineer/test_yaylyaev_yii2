@@ -38,12 +38,13 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+                // в фалй web.php прописал правила поиска контроллеров
+            ['label' => 'Home', 'url' => '/'],
             ['label' => 'Articles', 'url' => ['/article']],
-            ['label' => 'Index', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'About', 'url' => ['/about']],
+            ['label' => 'Contact', 'url' => ['/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -60,6 +61,11 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
+        <!-- создание ссылок -->
+        <a href="<?= \yii\helpers\Url::to('/') ?>">Home</a>
+        <?= Html::a('About', \yii\helpers\Url::to('/about')) ?>
+        <?= Html::a('Contact', \yii\helpers\Url::to('/contact')) ?>
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
