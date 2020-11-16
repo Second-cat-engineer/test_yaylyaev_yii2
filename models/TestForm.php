@@ -2,17 +2,26 @@
 
 namespace app\models;
 
-use yii\base\Model;
+//use yii\base\Model;
 
 // Класс расширен от Model, т.к. не требуется работа с БД.
 // если класс будет работать с БД то необходимо расширятся от класса ActiveRecord
-class TestForm extends Model
+use yii\db\ActiveRecord;
+
+class TestForm extends ActiveRecord
 {
-    public $name;
-    public $password;
-    public $email;
-    public $text;
-    public $gender;
+    // в случае если класс расширяет класс Модель то без объявления свойств работать не будет
+    // в случае если класс расширяет класс АктивРекорд то и без объявления работает
+    //public $name;
+    //public $password;
+    //public $email;
+    //public $text;
+    //public $gender;
+
+    public static function tableName()
+    {
+        return 'form';
+    }
 
     public function attributeLabels()
     {
@@ -20,7 +29,7 @@ class TestForm extends Model
         return [
             'name' => 'Имя',
             'email' => 'E-mail',
-            'text' => 'Текс сообщения'
+            'content' => 'Текс сообщения'
         ];
     }
 
@@ -31,6 +40,8 @@ class TestForm extends Model
         // [['name', 'email'], 'required', 'message' => 'Заполните обязательное поле']
         return [
             [['name', 'email'], 'required'],
+            ['gender', 'safe'],  // фактически не проверяет на бузопасность, по умолчанию считает что безопасен
+                                 // ничего не хочу с ним делать, но если хоть что то нужно с ним сделать хотся бы трим
             //[ 'name', 'required'],
             //[ 'email', 'required']
             // Правила валидации для email
@@ -40,10 +51,10 @@ class TestForm extends Model
             ['name', 'string', 'max' => 8, 'message' => 'Имя должно содержать не более 8 символов'],
             // На клиенте валидация пройдет, однако на сервере не пройдет
             // т.к не все валидаторы срабатывают на клиенте. наши только на сервере работают
-            ['name', 'myRule'],
+            //['name', 'myRule'],
 
             // для поля text обрежется все начальные и концевые пробелы
-            ['text', 'trim'],
+            ['content', 'trim'],
 
             // В yii действует такое правило: если для свойств не указаны правила валидации, то это поле не будет
             // передано при массовом заполнении объекта. для того чтобы массово заполнялось необходимо прописать
@@ -52,12 +63,14 @@ class TestForm extends Model
         ];
     }
 
+    /*
     public function myRule($attrs)
     {
         if (!in_array($this->$attrs, ['Safuan', 'world'])) {
             $this->addError($attrs, 'Wrong');
         }
     }
+    */
 
 
 }
