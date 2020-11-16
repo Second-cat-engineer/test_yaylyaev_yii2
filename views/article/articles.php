@@ -15,4 +15,8 @@ foreach ($articles as $article) {
     echo $article->title . '<br>';
     echo $article->content . '<br>' . '<hr>';
 }
+
+MyWidget::begin();
+echo 'привет мир!';
+MyWidget::end();
 //debug(Yii::$app);
